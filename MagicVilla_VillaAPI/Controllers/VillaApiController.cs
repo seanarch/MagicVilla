@@ -1,5 +1,6 @@
 ﻿using MagicVilla_VillaAPI.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
+using MagicVilla_VillaAPI.Data;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,11 +14,13 @@ namespace MagicVilla_VillaAPI.Controllers
         [HttpGet]
         public IEnumerable<VillaDTO> GetVillas()
         {
-            return new List<VillaDTO>
-            {
-                new VillaDTO{Id=1, Name="Pool View"},
-                new VillaDTO{Id=2, Name="Beach View"}
-            };
+            return VillaStore.villaList;
+        }
+
+        [HttpGet("id")]
+        public VillaDTO GetVilla(int id)
+        {
+            return VillaStore.villaList.FirstOrDefault(u=>u.Id==id);
         }
     }
 }
