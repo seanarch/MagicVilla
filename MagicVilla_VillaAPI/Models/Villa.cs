@@ -8,6 +8,20 @@ namespace MagicVilla_VillaAPI.Models
 		public string Name { get; set; }
 
 		public DateTime CreatedDate { get; set; }
+
+		public DateTime UpdateDate { get; set; }
+
+		public double Rate { get; set; }
+
+		public int Sqft { get; set; }
+
+		public int Occupancy { get; set; }
+
+		public string ImageUrl { get; set; }
+
+		public string Amenity { get; set; }
+
+		
 	}
 
 }
