@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MagicVilla_VillaAPI.Data;
 using Microsoft.AspNetCore.JsonPatch;
 using MagicVilla_VillaAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,12 +14,12 @@ namespace MagicVilla_VillaAPI.Controllers
     [ApiController]
     public class VillaApiController : ControllerBase
     {
-        private readonly ILogger<VillaApiController> _logger;
+        //private readonly ILogger<VillaApiController> _logger;
 
-        public VillaApiController(ILogger<VillaApiController> logger)
-        {
-            _logger = logger;
-        }
+        //public VillaApiController(ILogger<VillaApiController> logger)
+        //{
+        //    _logger = logger;
+        //}
 
         private readonly ApplicationDbContext _db;
         public VillaApiController(ApplicationDbContext db)
@@ -29,7 +30,7 @@ namespace MagicVilla_VillaAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<VillaDTO>> GetVillas()
         {
-            _logger.LogInformation("Getting all villas");
+            //_logger.LogInformation("Getting all villas");
             return Ok(_db.Villas.ToList());
         }
 
@@ -45,7 +46,7 @@ namespace MagicVilla_VillaAPI.Controllers
 
             if (id == 0)
             {
-                _logger.LogError("Get Villa Error with Id" + id);
+                //_logger.LogError("Get Villa Error with Id" + id);
                 return BadRequest();
             }
             var villa = _db.Villas.FirstOrDefault(u => u.Id == id);
@@ -160,7 +161,7 @@ namespace MagicVilla_VillaAPI.Controllers
             {
                 return BadRequest();
             }
-            var villa = _db.Villas.FirstOrDefault(u => u.Id == id);
+            var villa = _db.Villas.AsNoTracking().FirstOrDefault(u => u.Id == id);
 
             VillaDTO villaDTO = new()
             {
